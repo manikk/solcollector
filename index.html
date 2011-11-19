@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Sol COllector</title>
+		<script src="js/jquery-1.7.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var wordsArray = ["word1","word 2","word 3"];
+				var ul = getWords(wordsArray);
+				$("#suggestions").html(ul);
+			});
+
+
+			function getWords(wordsArray) {
+				if(wordsArray && wordsArray.length>0) {
+					var opt = "<ul>"; 
+					for(var i=0;i<wordsArray.length;i++){
+						opt+="<li>"+wordsArray[i]+"</li>";
+					}
+					opt+="</ul>";
+					return opt;
+				}
+					
+			}
+
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="header">
+				logo
+			</div>
+			<form action="">
+				<input type="text" id="rootWord"/>
+				<input type="submit" id="word" value="Submit Word"/>
+			</form>
+			<div id="suggestions">
+			</div>
+		</div>
+	</body>
+</html>

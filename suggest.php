@@ -1,5 +1,18 @@
 <?php
 
+    /*
+     *  Usage: suggest.php?part=[partial word for suggestion]
+     *
+     *  Response
+     *  ---------
+     *  Type: JSON
+     *  Data:
+     *  {
+     *      'words' : ['word1','word2','word3']
+     *  }
+     *
+     */
+
    // Get the word
      $part = $_GET['part'].'%';
 

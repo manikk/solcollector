@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<title>Get Char Code</title>
+		<script src="js/jquery-1.7.min.js"></script>
+		<script>     
+         
+			$(document).ready(function() {			
+				
+				$("#convert").click(function(){
+				   var rls = $("#rule").val().split("\n");
+				    var opt = "";
+				   for(var j=0;j<rls.length;j++) {				   
+				      var rlArr = rls[j].split(" ");		
+				      rlArr.shift();
+				      rlArr.shift();
+				     
+				      
+     				   var rulePart = rlArr[1].split("/")[0];
+				      var chainRules = rlArr[1].split("/")[1];
+				      
+				     
+				       opt+='"';
+				      for(var i=0;i<rlArr[0].length;i++) {
+				         console.log(rlArr[0][i]);
+				         if(rlArr[0][i] == 0){
+				            opt += "0";
+				         }else {
+   				         opt += getUnicodeValue(rlArr[0][i]);
+   				      }
+				      } 
+				       opt += " ";
+			      
+				     
+				      for(var i=0;i<rulePart.length;i++) {
+				         opt += getUnicodeValue(rulePart[i]);
+				      }
+				      
+				      if(chainRules) {
+				          opt +="/"+chainRules;
+				      }
+				      
+				      opt +=" ";				      
+				       
+				       for(var i=0;i<rlArr[2].length;i++) {
+				         opt += getUnicodeValue(rlArr[2][i]);
+				      }	
+				      opt+='",';
+				      opt+="<br>";
+				   
+				   }
+				   $("#suggestions").html(opt);
+				});
+				
+				
+			});
+			
+			function getUnicodeValue(char) {
+			   return "|u0"+char.charCodeAt(0).toString(16);
+			}
+
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<form action="">
+  			    Enter The Rule<br/>
+				<textArea id="rule"></textArea><br>
+				<input type="button" id="convert" value="Submit"/>
+			</form>
+			<div id="suggestions">
+			</div>
+		</div>
+	</body>
+</html>

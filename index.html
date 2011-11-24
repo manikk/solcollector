@@ -2,15 +2,19 @@
 	<head>
 		<title>Sol COllector</title>
 		<script src="js/jquery-1.7.min.js"></script>
+		<script src="js/suggest.js"></script>
 		<script>
-			$(document).ready(function() {
-				var wordsArray = ["word1","word 2","word 3"];
-				var ul = getWords(wordsArray);
-				$("#suggestions").html(ul);
+			$(document).ready(function() {				
+				
+				$("#btn_get_words").click(function(){
+				   var suggestedWords = solCollector.getWords($("#rootWord").val());
+				   $("#suggestions").html(convertToList(suggestedWords));
+				});			
+			
 			});
 
 
-			function getWords(wordsArray) {
+			function convertToList(wordsArray) {
 				if(wordsArray && wordsArray.length>0) {
 					var opt = "<ul>"; 
 					for(var i=0;i<wordsArray.length;i++){
@@ -31,7 +35,8 @@
 			</div>
 			<form action="">
 				<input type="text" id="rootWord"/>
-				<input type="submit" id="word" value="Submit Word"/>
+				<input type="button" id="btn_get_words" value="Submit Word"/>
+
 			</form>
 			<div id="suggestions">
 			</div>

@@ -8,6 +8,7 @@
 				
 				$("#btn_get_words").click(function(){
 				   var suggestedWords = solCollector.getWords($("#rootWord").val());
+					
 				   $("#suggestions").html(convertToList(suggestedWords));
 				});			
 			
@@ -18,7 +19,7 @@
 				if(wordsArray && wordsArray.length>0) {
 					var opt = "<ul>"; 
 					for(var i=0;i<wordsArray.length;i++){
-						opt+="<li>"+wordsArray[i]+"</li>";
+						opt+="<li>"+wordsArray[i].word+':::::Rule::::::>'+wordsArray[i].rule+"</li>";
 					}
 					opt+="</ul>";
 					return opt;

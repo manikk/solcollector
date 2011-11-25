@@ -266,9 +266,9 @@ var solCollector = {
                if( word.substr(word.length-lettersEndMatch.length,word.length) == lettersEndMatch) {
                   if(lettersToRemove!=0) {                     
                      //returnArray.push(word.substring(0,word.length-lettersToAdd.length)+lettersToAdd);
-                     returnArray.push(word.substr(0,word.length-lettersToRemove.length)+lettersToAdd);
+                     returnArray.push({'rule':i,'word':word.substr(0,word.length-lettersToRemove.length)+lettersToAdd});
                   }else {             
-                    returnArray.push(word+lettersToAdd);
+                    returnArray.push({'rule':i,'word':word+lettersToAdd});
                   }
                   break;
                }

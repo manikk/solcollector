@@ -1,27 +1,101 @@
 <html>
 	<head>
 		<title>Sol COllector</title>
+		<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+
+		body {
+			text-align:center;
+		}
+			#suggestions ul {
+				list-style :none;
+			}		
+
+		#wrapper {
+			width:960px;
+			margin:auto;
+			text-align:left;
+		}	
+
+		#suggestions ul li {
+			display:block;
+			background-color:#434343;
+			float:left;
+			padding:7px;
+			margin-right:10px;
+			margin-bottom:10px;
+			color:#fff;
+			border-radius:7px;
+			cursor:pointer;
+		}
+
+		#suggestions ul li.selected {
+				background-color:#999;
+		}	
+
+		.clearfix:after {
+			visibility: hidden;
+			display: block;
+			font-size: 0;
+			content: " ";
+			clear: both;
+			height: 0;
+			}
+		.clearfix { display: inline-table; }
+		/* Hides from IE-mac \*/
+		* html .clearfix { height: 1%; }
+		.clearfix { display: block; }
+		/* End hide from IE-mac */
+
+		form {
+			margin-bottom:10px;
+			text-align:center;
+			margin-top:10px;
+		}
+
+		</style>
 		<script src="js/jquery-1.7.min.js"></script>
 		<script src="js/suggest.js"></script>
 		<script>
 			$(document).ready(function() {				
 				
 				$("#btn_get_words").click(function(){
+					$("#suggestions").empty();
 				   var suggestedWords = solCollector.getWords($("#rootWord").val());
 					
 				   $("#suggestions").html(convertToList(suggestedWords));
+					$("#suggestions").append("<input type='button' id='save' value='save' style='clear:both'/>");
+					$("#suggestions li").click(onWordClicked);
+					$("#save").click(function(){
+						var suffixRules = "";
+						$("li.selected").each(function() {
+							suffixRules += $(this).attr('id');
+						});
+						alert($('#rootWord').val()+"/"+suffixRules);
+					});
 				});			
 			
 			});
 
-
+			function onWordClicked(evt) {
+					var thisObj = $(this);
+					if(thisObj.hasClass('selected')){
+						thisObj.removeClass('selected');
+					}else {
+						thisObj.addClass('selected');
+					}
+			}
 			function convertToList(wordsArray) {
 				if(wordsArray && wordsArray.length>0) {
-					var opt = "<ul>"; 
+					var opt = "<ul class='clearfix'>"; 
 					for(var i=0;i<wordsArray.length;i++){
-						opt+="<li>"+wordsArray[i].word+':::::Rule::::::>'+wordsArray[i].rule+"</li>";
+						opt+="<li id='"+wordsArray[i].rule+"'>"+wordsArray[i].word+"</li>";
 					}
 					opt+="</ul>";
+					
 					return opt;
 				}
 					
@@ -31,15 +105,17 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			<div id="header">
-				logo
-			</div>
+			
 			<form action="">
+				
 				<input type="text" id="rootWord"/>
-				<input type="button" id="btn_get_words" value="Submit Word"/>
+				<input type="button" id="btn_get_words" value="Suggest"/>
 
 			</form>
-			<div id="suggestions">
+			<div style="margin:10px 0;"> 
+				Please select the correct words by clicking it				
+			</div>
+			<div id="suggestions" class="clearfix">
 			</div>
 		</div>
 	</body>
